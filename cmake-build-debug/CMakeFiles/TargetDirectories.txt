@@ -1,0 +1,3 @@
+D:/AMF/3 - Terceiro Semestre/Algoritimos II/TrabalhoAlgoritimos/cmake-build-debug/CMakeFiles/TrabalhoAlgoritimos.dir
+D:/AMF/3 - Terceiro Semestre/Algoritimos II/TrabalhoAlgoritimos/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/AMF/3 - Terceiro Semestre/Algoritimos II/TrabalhoAlgoritimos/cmake-build-debug/CMakeFiles/rebuild_cache.dir

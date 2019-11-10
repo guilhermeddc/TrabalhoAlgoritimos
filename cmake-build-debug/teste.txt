@@ -1,0 +1,5 @@
+maria                                             |10| 5
+jao                                               | 2| 6
+matias                                            | 2| 5
+taitaina                                          | 9| 6
+bira                                              | 5| 1

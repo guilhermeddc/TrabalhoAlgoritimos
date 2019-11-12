@@ -63,49 +63,54 @@ aluno lerArquivo(char *arq)
 	
 	FILE *f;
 	
-	char buffer[300];
+	char buffer[56];
+	int i;
 	
 	f = fopen(arq, "r"); 
 	
-    printf("\nConteudo do arquivo:\n\n");
+    printf("\nConteudo do arquivo %s:\n\n", arq);
     
-	while(! feof(f))
-	{
-		
-		fgets(buffer, 300, f);
+    for(i = 0; (! feof(f)); ++i)
+    {
+    	
+    	fgets(buffer, 56, f);
 		
 		printf("%s", buffer);
-		
+    	
 	}
 	
 	fclose(f);
 	
 }
-//função para contar as linhas do arquivo
-int contarLinhasArq(char arq)
-{
-	
-	//axhar uma maneiraaaa
 
-}
 //função para pegar os valores dos alunos e no final calcular a media deles e imprimir os aporvados
-aluno lerAlunos(aluno *al, char *n)
+aluno lerAlunos(char *arq)
 {
-    int i;
     
-	FILE *f = fopen(n,"r");
+   	char c[50];
+   	int n1;
+   	int n2;
+   	
+    FILE *f;
     
-	for (i = 0; i < 100; ++i)
-	{
-       
-	    fflush(stdin);
-        fscanf(f, "%s|%2.d|%2.d", &al[i].nome, &al[i].nota01, &al[i].nota02);
-        
+    if ((f = fopen(arq, "r")) == NULL)
+    {
+    	
+        printf("Ocorreu um erro ao abrir o arquivo.");
+    
+        exit(1); 
+		        
     }
     
-    fclose(f);
+    while(!feof(arq))
+    {
+	
+		fscanf(f, "%s", c);
+		printf("%s\n", c);
     
-    return *al;
+	}
+	
+	fclose(f);
     
 }
 
@@ -128,24 +133,26 @@ int main()
     
 	setlocale(LC_ALL, "Portuguese");
     
-	int op = 100;
-    
-	while (op != 0)
+	int exercicio;
+	
+	do	
 	{
         
 		printf("\n\nEscolha uma opção:\n\n");
         printf("Digite 1 para cadastrar nova turma.\n");
         printf("Digite 2 para exibir dados da turma.\n");
         printf("Digite 3 para ver os alunos aprovados de uma turma.\n");
-        scanf("%d", &op);
+        scanf("%d", &exercicio);
         
-		switch (op)
+		switch(exercicio)
 		{
-            
+			
 			case 1:
 			{
-                
-                char nomeArquivo[50];
+				
+				system("cls");
+				
+				char nomeArquivo[50];
 				int numeroDeAlunos;
                 
 				printf("\nInforme o nome da turma: ");
@@ -163,7 +170,7 @@ int main()
 				for (i = 0; i < numeroDeAlunos; ++i)
 				{
                     fflush(stdin);
-                    printf("Nome do aluno 0%d: ", i + 1);
+                    printf("\nNome do aluno 0%d: ", i + 1);
                     gets(novo[i].nome);
                     fflush(stdin);
                     ContaString(novo[i].nome);
@@ -178,13 +185,17 @@ int main()
                 iniciaAlunos(nomeArquivo);
                 
                 finalizaAlunos(novo, nomeArquivo, numeroDeAlunos);
-                
-                
-                break;
-                
-            }
-            case 2:
+				
+				getch();
+				
+				break;
+				
+			}
+			
+			case 2:
 			{
+				
+				system("cls");
 				
 				char nomeArquivo[50];
 				
@@ -194,35 +205,44 @@ int main()
                 strcat(nomeArquivo, ".txt");
                                
                 lerArquivo(nomeArquivo);
-
-				system("pause");
 				
-                break;
-            }
-            case 3: 
-			{
-            	
-            	char nomeArquivo[50];
-            	
-				printf("Informe a turma que deseja verificar: ");
-				scanf("%d", &nomeArquivo);
-				strcat(nomeArquivo, ".txt");
+				getch();
 				
-				contarLinhasArq(nomeArquivo);
-								
-			    break;
-            }
-            default:
+				break;
+				
+			}
+			
+			case 3:
 			{
-               
-			    printf("Digito invalido!");
-			    
-            }
-            
-        }
-  
-    }
-    
-    return 0;
+				
+				system("cls");
+				
+				char nomeArquivo[50];
+				
+                printf("\nInforme o nome da turma visualizar os aprovados: ");
+                scanf("%s", &nomeArquivo);
+                
+                strcat(nomeArquivo, ".txt");
+                               
+                lerAlunos(nomeArquivo);
+				
+				getch();
+				
+				break;
+				
+			}
+			
+			default:
+			{
+				
+				printf("Digito invalido!");
+					
+			}
+			
+		}
+		
+	system("cls");
+		
+	}while(exercicio);
     
 }

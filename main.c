@@ -82,11 +82,12 @@ aluno lerArquivo(char *arq)
 	fclose(f);
 	
 }
-//função para calcular media e ja printar lista de aprovados
-void calculaMedia(int linhas, char *copiaArq)
-{
 
-    char listaAprov[150];
+//função para calcular media e ja printar lista de aprovados
+void calculaMedia(char *copiaArq)
+{
+	
+    char listaAprov[57];
     int i, j;
     float media;
 
@@ -98,69 +99,72 @@ void calculaMedia(int linhas, char *copiaArq)
     char n1[2];
     char n2[2];
 
-    for(i = 0; i > linhas; i++)
-    {
-
-        for(j = 0; j > 56; j++)
+        for(j = 0; j < 57; j++)
         {
-
+			
             if(j < 50)
             {
 
                 Aux.nome[j] = copiaArq[j];
-
+                printf()
+                
+					
             }
-
+			
             if(j == 51)
             {
 
                 n1[0] = copiaArq[j];
-
+				printf("%s\n", n1);
             }
+            
             if(j == 52)
             {
 
                 n1[1] = copiaArq[j];
-
-            }
+				printf("%s\n", n1);
+			}         
 
             if(j == 54)
             {
 
                 n2[0] = copiaArq[j];
-
+				//printf("%s\n", n2);
             }
 
             if(j == 55)
             {
 
                 n2[1] = copiaArq[j];
-
+				printf("%s\n", n2);
             }
 
             Aux.nota01 = atoi(n1);
             Aux.nota02 = atoi(n2);
 
-            printf("%s - %d\n\n", n1, atoi(n1));
+            //printf("%s - %d\n\n", n1, atoi(n1));
 
             media = (Aux.nota01 + Aux.nota02)/2;
-
-            printf("media = %f\n", media);
+			if(media>0){
+				printf("Média = %f\n", media);	
+			}
+            
 
             if( media >= 7)
             {
 
-                strcat( strcat(listaAprov , Aux.nome), listaAprov);
+                strcat(strcat(listaAprov, Aux.nome), listaAprov);
 
             }
 
         }
-
-    }
+    
 
     printf("%s", listaAprov);
 
 }
+
+//função que vai identificar quantas linhas tem no arquivo
 int separaLinhas(int tam)
 {
 
@@ -168,14 +172,16 @@ int separaLinhas(int tam)
 
     qtdLinhas = tam/56;
 
+	printf("%d", qtdLinhas);
     return qtdLinhas;
 
 }
+
 //função para armazenar o arquivo numa string
 aluno armazenaArq(char *arq)
 {
     
-   	char c[57];
+   	char c[150];
    	int n1;
    	int n2;
    	int i;
@@ -194,23 +200,30 @@ aluno armazenaArq(char *arq)
     for(i = 0; (! feof(f)); i++)
     {
     	
-    	fgets(c, 57, f);
-
+    	fgets(c, 150, f);
+    	calculaMedia(c);
+		
     }
+    
+    fclose(f);
     
     int tamanho = strlen(c);
 	
 	int qtdL = separaLinhas(tamanho);
 	
-	calculaMedia(qtdL, c);
-    printf("%s", c);
+	f = fopen(arq, "r");
+	
+	for(i = 0; i < qtdL; i++)
+    {
+    	
+    	fgets(c, 57, f);
+    	calculaMedia(c);
+		
+    }
+	
 	fclose(f);
     
 }
-
-
-
-
 
 //função para deixar o nome com 50 caracteres
 void ContaString(char *n)
@@ -239,7 +252,7 @@ int main()
 		printf("\n\nEscolha uma opção:\n\n");
         printf("Digite 1 para cadastrar nova turma.\n");
         printf("Digite 2 para exibir dados da turma.\n");
-        printf("Digite 3 para ver os alunos aprovados de uma turma.\n");
+        printf("Digite 3 para ver os alunos aprovados de uma turma.\n\n");
         scanf("%d", &exercicio);
         
 		switch(exercicio)
@@ -256,7 +269,7 @@ int main()
 				printf("\nInforme o nome da turma: ");
                 scanf("%s", &nomeArquivo);
                 strcat(nomeArquivo, ".txt");
-                printf("Quantos alunos tem nesta turma?\n");
+                printf("\nQuantos alunos tem nesta turma?\n");
                 scanf("%d", &numeroDeAlunos);
                 
 				aluno *p;

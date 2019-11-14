@@ -7,9 +7,9 @@
 typedef struct DadosAluno
 {
    
-    char nome[50];
     int nota01;
     int nota02;
+    char nome[50];
     
 } aluno;
 
@@ -39,12 +39,12 @@ void iniciaAlunos(char *n)
 }
 
 //funçaõ para inserir dados no arquivo
-void finalizaAlunos(aluno *al, char *n, int num)
+void finalizaAlunos(aluno *al, char *arq, int num)
 {
    
 	int i;
 	
-    FILE *f = fopen(n, "a");
+    FILE *f = fopen(arq, "a");
     
 	for ( i = 0; i < num; ++i)
 	{
@@ -63,17 +63,17 @@ aluno lerArquivo(char *arq)
 	
 	FILE *f;
 	
-	char buffer[56];
+	char buffer[57];
 	int i;
 	
 	f = fopen(arq, "r"); 
 	
     printf("\nConteudo do arquivo %s:\n\n", arq);
     
-    for(i = 0; (! feof(f)); ++i)
+    for(i = 0; (! feof(f)); i++)
     {
     	
-    	fgets(buffer, 56, f);
+    	fgets(buffer, 57, f);
 		
 		printf("%s", buffer);
     	
@@ -83,13 +83,14 @@ aluno lerArquivo(char *arq)
 	
 }
 
-//função para pegar os valores dos alunos e no final calcular a media deles e imprimir os aporvados
-aluno lerAlunos(char *arq)
+//função para armazenar o arquivo numa string
+aluno armazenaArq(char *arq)
 {
     
-   	char c[50];
+   	char c[57];
    	int n1;
    	int n2;
+   	int i;
    	
     FILE *f;
     
@@ -102,16 +103,108 @@ aluno lerAlunos(char *arq)
 		        
     }
     
-    while(!feof(arq))
+    for(i = 0; (! feof(f)); i++)
     {
-	
-		fscanf(f, "%s", c);
-		printf("%s\n", c);
-    
+    	
+    	fgets(c, 57, f);
+    	
 	}
+    
+    int tamanho = strlen(c);
+	
+	int qtdL = separaLinhas(tamanho);
+	
+	calculaMedia(qtdL, c);
 	
 	fclose(f);
     
+}
+
+//função para calcular media e ja printar lista de aprovados
+void calculaMedia(int linhas, char *copiaArq)
+{
+	
+	char listaAprov[150];
+	int i, j;
+	int media;
+	
+	aluno Aux;
+    Aux.nome;
+    Aux.nota01;
+    Aux.nota02;
+    
+    char n1[2];
+    char n2[2];
+    	
+	for(i = 0; i > linhas; i++)
+	{
+		
+		for(j = 0; j > 56; j++)
+		{
+			
+			if(j < 50)
+			{
+				
+				Aux.nome[j] = copiaArq[j];	
+				
+			}
+			
+			if(j == 51)
+			{
+				
+				n1[0] = copiaArq[j];
+				
+			}
+			if(j == 52)
+			{
+				
+				n1[1] = copiaArq[j];
+				
+			}
+			
+			if(j == 54)
+			{
+				
+				n2[0] = copiaArq[j];
+				
+			}
+			
+			if(j == 55)
+			{
+				
+				n2[1] = copiaArq[j];
+				
+			}
+			
+			Aux.nota01 = atoi(n1);
+			Aux.nota02 = atoi(n2);
+			
+			media = (Aux.nota01 + Aux.nota02)/2;
+			
+			if( media >= 7)
+			{
+				
+				strcat( strcat(listaAprov , Aux.nome), listaAprov);
+				
+			}
+			
+		}
+		
+	}
+	
+	printf("%s", listaAprov);
+	
+}
+
+int separaLinhas(int tam)
+{
+	
+	int qtdLinhas;
+	
+	qtdLinhas = tam/56;
+	
+	return qtdLinhas;
+	
 }
 
 //função para deixar o nome com 50 caracteres
@@ -186,7 +279,7 @@ int main()
                 
                 finalizaAlunos(novo, nomeArquivo, numeroDeAlunos);
 				
-				getch();
+				system("pause");
 				
 				break;
 				
@@ -206,7 +299,7 @@ int main()
                                
                 lerArquivo(nomeArquivo);
 				
-				getch();
+				system("pause");
 				
 				break;
 				
@@ -224,9 +317,9 @@ int main()
                 
                 strcat(nomeArquivo, ".txt");
                                
-                lerAlunos(nomeArquivo);
+                armazenaArq(nomeArquivo);
 				
-				getch();
+				system("pause");
 				
 				break;
 				

@@ -82,7 +82,95 @@ aluno lerArquivo(char *arq)
 	fclose(f);
 	
 }
+//função para calcular media e ja printar lista de aprovados
+void calculaMedia(int linhas, char *copiaArq)
+{
 
+    char listaAprov[150];
+    int i, j;
+    float media;
+
+    aluno Aux;
+    Aux.nome;
+    Aux.nota01;
+    Aux.nota02;
+
+    char n1[2];
+    char n2[2];
+
+    for(i = 0; i > linhas; i++)
+    {
+
+        for(j = 0; j > 56; j++)
+        {
+
+            if(j < 50)
+            {
+
+                Aux.nome[j] = copiaArq[j];
+
+            }
+
+            if(j == 51)
+            {
+
+                n1[0] = copiaArq[j];
+
+            }
+            if(j == 52)
+            {
+
+                n1[1] = copiaArq[j];
+
+            }
+
+            if(j == 54)
+            {
+
+                n2[0] = copiaArq[j];
+
+            }
+
+            if(j == 55)
+            {
+
+                n2[1] = copiaArq[j];
+
+            }
+
+            Aux.nota01 = atoi(n1);
+            Aux.nota02 = atoi(n2);
+
+            printf("%s - %d\n\n", n1, atoi(n1));
+
+            media = (Aux.nota01 + Aux.nota02)/2;
+
+            printf("media = %f\n", media);
+
+            if( media >= 7)
+            {
+
+                strcat( strcat(listaAprov , Aux.nome), listaAprov);
+
+            }
+
+        }
+
+    }
+
+    printf("%s", listaAprov);
+
+}
+int separaLinhas(int tam)
+{
+
+    int qtdLinhas;
+
+    qtdLinhas = tam/56;
+
+    return qtdLinhas;
+
+}
 //função para armazenar o arquivo numa string
 aluno armazenaArq(char *arq)
 {
@@ -107,105 +195,22 @@ aluno armazenaArq(char *arq)
     {
     	
     	fgets(c, 57, f);
-    	
-	}
+
+    }
     
     int tamanho = strlen(c);
 	
 	int qtdL = separaLinhas(tamanho);
 	
 	calculaMedia(qtdL, c);
-	
+    printf("%s", c);
 	fclose(f);
     
 }
 
-//função para calcular media e ja printar lista de aprovados
-void calculaMedia(int linhas, char *copiaArq)
-{
-	
-	char listaAprov[150];
-	int i, j;
-	int media;
-	
-	aluno Aux;
-    Aux.nome;
-    Aux.nota01;
-    Aux.nota02;
-    
-    char n1[2];
-    char n2[2];
-    	
-	for(i = 0; i > linhas; i++)
-	{
-		
-		for(j = 0; j > 56; j++)
-		{
-			
-			if(j < 50)
-			{
-				
-				Aux.nome[j] = copiaArq[j];	
-				
-			}
-			
-			if(j == 51)
-			{
-				
-				n1[0] = copiaArq[j];
-				
-			}
-			if(j == 52)
-			{
-				
-				n1[1] = copiaArq[j];
-				
-			}
-			
-			if(j == 54)
-			{
-				
-				n2[0] = copiaArq[j];
-				
-			}
-			
-			if(j == 55)
-			{
-				
-				n2[1] = copiaArq[j];
-				
-			}
-			
-			Aux.nota01 = atoi(n1);
-			Aux.nota02 = atoi(n2);
-			
-			media = (Aux.nota01 + Aux.nota02)/2;
-			
-			if( media >= 7)
-			{
-				
-				strcat( strcat(listaAprov , Aux.nome), listaAprov);
-				
-			}
-			
-		}
-		
-	}
-	
-	printf("%s", listaAprov);
-	
-}
 
-int separaLinhas(int tam)
-{
-	
-	int qtdLinhas;
-	
-	qtdLinhas = tam/56;
-	
-	return qtdLinhas;
-	
-}
+
+
 
 //função para deixar o nome com 50 caracteres
 void ContaString(char *n)

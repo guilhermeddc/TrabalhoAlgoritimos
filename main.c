@@ -87,93 +87,56 @@ aluno lerArquivo(char *arq)
 void calculaMedia(char *copiaArq)
 {
 	
-    char listaAprov[57];
-    int i, j;
+    char listaAprov[300] = {" "};
+    int j;
     float media;
 
     aluno Aux;
-    Aux.nome;
-    Aux.nota01;
-    Aux.nota02;
 
     char n1[2];
     char n2[2];
 
-        for(j = 0; j < 57; j++)
+        for(j = 0; j < 56; j++)
         {
 			
             if(j < 50)
             {
 
                 Aux.nome[j] = copiaArq[j];
-                printf()
-                
-					
+                					
             }
 			
-            if(j == 51)
+            if(j == 51 || j == 52)
             {
 
-                n1[0] = copiaArq[j];
-				printf("%s\n", n1);
+                n1[0] = copiaArq[51];
+                n1[1] = copiaArq[52];
+                
+                Aux.nota01 = atoi(n1);
+				
+            }         
+
+            if(j == 54 || j == 55)
+            {
+
+                n2[0] = copiaArq[54];
+                n2[1] = copiaArq[55];
+                
+                Aux.nota02 = atoi(n2);
+				
             }
             
-            if(j == 52)
-            {
-
-                n1[1] = copiaArq[j];
-				printf("%s\n", n1);
-			}         
-
-            if(j == 54)
-            {
-
-                n2[0] = copiaArq[j];
-				//printf("%s\n", n2);
-            }
-
-            if(j == 55)
-            {
-
-                n2[1] = copiaArq[j];
-				printf("%s\n", n2);
-            }
-
-            Aux.nota01 = atoi(n1);
-            Aux.nota02 = atoi(n2);
-
-            //printf("%s - %d\n\n", n1, atoi(n1));
-
-            media = (Aux.nota01 + Aux.nota02)/2;
-			if(media>0){
-				printf("Média = %f\n", media);	
-			}
-            
-
-            if( media >= 7)
-            {
-
-                strcat(strcat(listaAprov, Aux.nome), listaAprov);
-
-            }
+    	}
+    	
+        media = ((Aux.nota01 + Aux.nota02)/2);
+        if( media > 6)
+        {
+					
+          	strcpy(listaAprov, Aux.nome);
 
         }
-    
-
-    printf("%s", listaAprov);
-
-}
-
-//função que vai identificar quantas linhas tem no arquivo
-int separaLinhas(int tam)
-{
-
-    int qtdLinhas;
-
-    qtdLinhas = tam/56;
-
-	printf("%d", qtdLinhas);
-    return qtdLinhas;
+            
+       	printf("%s\n", listaAprov);
 
 }
 
@@ -181,7 +144,7 @@ int separaLinhas(int tam)
 aluno armazenaArq(char *arq)
 {
     
-   	char c[150];
+   	char c[200];
    	int n1;
    	int n2;
    	int i;
@@ -197,26 +160,24 @@ aluno armazenaArq(char *arq)
 		        
     }
     
-    for(i = 0; (! feof(f)); i++)
-    {
+    int tamanho;
+    int qtdL = 0;
+    
+    while(fgets(c, 200, f)){
     	
-    	fgets(c, 150, f);
-    	calculaMedia(c);
-		
-    }
+    	qtdL++;
+	}
     
     fclose(f);
     
-    int tamanho = strlen(c);
-	
-	int qtdL = separaLinhas(tamanho);
+    tamanho = strlen(c);
 	
 	f = fopen(arq, "r");
 	
 	for(i = 0; i < qtdL; i++)
     {
     	
-    	fgets(c, 57, f);
+    	fgets(c, 100, f);
     	calculaMedia(c);
 		
     }
@@ -354,6 +315,7 @@ int main()
 		
 	system("cls");
 		
-	}while(exercicio);
+	}
+	while(exercicio);
     
 }
